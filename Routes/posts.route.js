@@ -59,19 +59,19 @@ PostRouter.get('/posts/:id', async (req, res) => {
 // Update a post by id
 PostRouter.patch('/posts/:id', async (req, res) => {
   const { id } = req.params;
-  const { content } = req.body;
 
   try {
     // Check if post exists
     const postExists = await Post.findById(id);
     if (!postExists) {
       return res.send({ msg: 'Post not found' });
+    }else{
+      const { content } = req.body;
+      const updatedPost = await Post.findByIdAndUpdate(id, { content }, { new: true });
+      res.send({ msg: 'Post updated successfully', post: updatedPost });
     }
 
     // Update post content
-    const updatedPost = await Post.findByIdAndUpdate(id, { content }, { new: true });
-
-    res.send({ msg: 'Post updated successfully', post: updatedPost });
   } catch (error) {
     res.send({ msg: 'Error in updating posts data,try again' });
   }
@@ -115,6 +115,23 @@ PostRouter.post('/posts/:id/like', async (req, res) => {
   } catch (error) {
     res.send({ msg: 'Error in liking the post, try again' });
   }})
+  PostRouter.post('/posts/:id/unlike', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Check if post exists
+      const postExists = await Post.findById(id);
+      if (!postExists) {
+        return res.send({ msg: 'Post not found' });
+      }
+  
+      // Increment likes
+      const updatedPost = await Post.findByIdAndUpdate(id, { $inc: { likes: -1 } }, { new: true });
+  
+      res.send({ msg: 'Post unliked successfully', post: updatedPost });
+    } catch (error) {
+      res.send({ msg: 'Error in unliking the post, try again' });
+    }})
 
 
     // GET /analytics/posts: Retrieve the total number of posts.
