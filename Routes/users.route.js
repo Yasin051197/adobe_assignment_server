@@ -14,7 +14,7 @@ UserRouter.post('/users', async (req, res) => {
   }
 });
 //GET all users
-UserRouter.get('/use', async (req, res) => {
+UserRouter.get('/users', async (req, res) => {
 try {
   const users = await User.find();
   if (users.length<=0) {
