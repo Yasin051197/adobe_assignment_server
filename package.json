@@ -8,9 +8,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "engines":{
-    "node":">=14<15"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Yasin051197/adobe_assignment_server.git"
