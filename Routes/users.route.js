@@ -113,7 +113,7 @@ UserRouter.get('/analytics/users/top-active', async (req, res) => {
         $limit: 5
       }
     ]);
-    res.send(top5users);
+    res.send({top_5_users:top5users});
   } catch (err) {
     res.send({msg:"Error in finding top 5 users,try again"});
   }
