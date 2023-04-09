@@ -1,6 +1,7 @@
 
 const {connection}=require("./Config/db");
 const express=require("express")
+const cors=require("cors")
 const UserRouter = require("./Routes/users.route")
 const PostRouter = require("./Routes/posts.route")
 
