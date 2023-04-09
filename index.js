@@ -7,7 +7,7 @@ const PostRouter = require("./Routes/posts.route")
 
 const app=express()
 app.use(express.json())
-
+app.use(cors({origin:"*"}))
 app.use("/",UserRouter)
 app.use("/",PostRouter)
 
