@@ -42,8 +42,8 @@ UserRouter.get('/users/:id', async (req, res) => {
   }
 });
 
-// PUT /users/{id}:
-UserRouter.put('/users/:id', async (req, res) => {
+// PATCH /users/{id}:
+UserRouter.patch('/users/:id', async (req, res) => {
     const id=req.params.id;
   try {
     const user = await User.findById(id);

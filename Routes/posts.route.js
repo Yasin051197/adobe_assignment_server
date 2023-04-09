@@ -11,7 +11,7 @@ PostRouter.post('/posts', async (req, res) => {
 
   try {
     // Check if user exists
-    const userExists = await User.findById(user_id);
+    const userExists = await User.find({user_id:user_id});
     if (!userExists) {
       return res.send({msg:'User not found'});
     }
