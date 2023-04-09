@@ -109,7 +109,7 @@ PostRouter.post('/posts/:id/like', async (req, res) => {
     }
 
     // Increment likes
-    const updatedPost = await Post.findByIdAndUpdate(id, { $inc: { likes: 1 } }, { new: true });
+    const updatedPost = await Post.findByIdAndUpdate(id, { $inc: { likes: 1 } });
 
     res.send({ msg: 'Post liked successfully', post: updatedPost });
   } catch (error) {
@@ -126,9 +126,13 @@ PostRouter.post('/posts/:id/like', async (req, res) => {
       }
   
       // Increment likes
-      const updatedPost = await Post.findByIdAndUpdate(id, { $inc: { likes: -1 } }, { new: true });
-  
-      res.send({ msg: 'Post unliked successfully', post: updatedPost });
+      const updatedPost = await Post.findByIdAndUpdate(id, { $inc: { likes: -1 } })
+      if(updatedPost.likes<0){
+        await Post.findByIdAndUpdate(id,  { likes: 0 } )
+        res.send({ msg: 'Post unliked successfully'});
+      }else{
+        res.send({ msg: 'Post unliked successfully'});
+      }
     } catch (error) {
       res.send({ msg: 'Error in unliking the post, try again' });
     }})
