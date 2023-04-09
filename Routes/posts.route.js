@@ -142,7 +142,7 @@ PostRouter.post('/posts/:id/like', async (req, res) => {
 PostRouter.get('/analytics/posts', async (req, res) => {
     try {
       const count = await Post.countDocuments();
-      res.send({ total_posts: count });
+      res.send({count});
     } catch (err) {
       res.send({ msg:"Error in finding posts count,try again"});
     }
