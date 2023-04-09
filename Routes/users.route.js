@@ -8,13 +8,13 @@ UserRouter.post('/users', async (req, res) => {
   try {
     const user = new User({name,email,bio});
     await user.save();
-    res.send(user._id);
+    res.send({ msg:"Successful"});
   } catch (err) {
     res.send({ msg:"Error in posting user"});
   }
 });
 //GET all users
-UserRouter.get('/users', async (req, res) => {
+UserRouter.get('/use', async (req, res) => {
 try {
   const users = await User.find();
   if (users.length<=0) {
