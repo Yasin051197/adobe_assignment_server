@@ -57,7 +57,7 @@ PostRouter.get('/posts/:id', async (req, res) => {
 });
 
 // Update a post by id
-PostRouter.put('/posts/:id', async (req, res) => {
+PostRouter.patch('/posts/:id', async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;
 
