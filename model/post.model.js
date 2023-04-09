@@ -7,7 +7,6 @@ const postSchema=mongoose.Schema({
         required: true
       },
     content:{type:String,required:true},
-    bio:{type:String},
     likes:{
         type: Number,
         min: 0,

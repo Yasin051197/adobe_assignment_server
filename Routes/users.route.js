@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('./models');
+const {User} = require('../model/user.model');
 const UserRouter = express.Router();
 
 // POST /users: 
@@ -8,10 +8,23 @@ UserRouter.post('/users', async (req, res) => {
   try {
     const user = new User({name,email,bio});
     await user.save();
-    res.send(user);
+    res.send(user._id);
   } catch (err) {
     res.send({ msg:"Error in posting user"});
   }
+});
+//GET all users
+UserRouter.get('/users', async (req, res) => {
+try {
+  const users = await User.find();
+  if (users.length<=0) {
+    res.send({ msg: 'Users not found' });
+  } else {
+    res.send(users);
+  }
+} catch (err) {
+  res.send({msg:"Error in finding users,try again"});
+}
 });
 
 // GET /users/{id}: 
@@ -51,12 +64,13 @@ UserRouter.put('/users/:id', async (req, res) => {
 // DELETE /users/{id}: 
 UserRouter.delete('/users/:id', async (req, res) => {
     const id=req.params.id;
+    console.log(id)
   try {
     const user = await User.findById(id);
     if (!user) {
       res.send({ msg: 'User not found' });
     } else {
-      await user.remove();
+      await User.findByIdAndDelete(id);
       res.send({ msg: 'User deleted successfully' });
     }
   } catch (err) {
@@ -68,7 +82,7 @@ UserRouter.delete('/users/:id', async (req, res) => {
 UserRouter.get('/analytics/users', async (req, res) => {
   try {
     const count = await User.countDocuments();//use find and if possible take length of count
-    res.send({ count });
+    res.send({count});
   } catch (err) {
     res.send({msg:"Error in finding users count,try again"});
   }
@@ -105,4 +119,4 @@ UserRouter.get('/analytics/users/top-active', async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = UserRouter;
