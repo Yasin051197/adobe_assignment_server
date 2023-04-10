@@ -20,7 +20,7 @@ try {
   if (users.length<=0) {
     res.send({ msg: 'Users not found' });
   } else {
-    res.send(users);
+    res.send({ msg: 'Users found successfully' },users);
   }
 } catch (err) {
   res.send({msg:"Error in finding users,try again"});
@@ -54,7 +54,7 @@ UserRouter.patch('/users/:id', async (req, res) => {
       user.name = name
       user.bio = bio
       await user.save();
-      res.send(user);
+      res.send({ msg: 'User updated successfully' },user);
     }
   } catch (err) {
     res.send({msg:"Error in updating users data,try again"});
