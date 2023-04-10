@@ -20,7 +20,7 @@ try {
   if (users.length<=0) {
     res.send({ msg: 'Users not found' });
   } else {
-    res.send({ msg: 'Users found successfully' },users);
+    res.send(users);
   }
 } catch (err) {
   res.send({msg:"Error in finding users,try again"});
