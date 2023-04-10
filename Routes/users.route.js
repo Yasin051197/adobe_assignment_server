@@ -54,7 +54,7 @@ UserRouter.patch('/users/:id', async (req, res) => {
       user.name = name
       user.bio = bio
       await user.save();
-      res.send({ msg: 'User updated successfully' },user);
+      res.send(user);
     }
   } catch (err) {
     res.send({msg:"Error in updating users data,try again"});
